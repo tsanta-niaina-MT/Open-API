@@ -16,28 +16,27 @@ externalDocs:
 servers:
   - url: https://STD22092.com
 tags:
-  - name: pet
-    description: Everything about your Pets
+  - name: Student
+    description: Everything about your Students
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: store
-    description: Access to Petstore orders
+  - name: Teachers
+    description: Everything about your Teachers
     externalDocs:
       description: Find out more about our store
       url: http://swagger.io
-  - name: user
-    description: Operations about user
+ 
 paths:
-  /pet/findByStatus:
+  /Student/findPetsByStudenID:
     get:
       tags:
-        - pet
+        - Student
       summary: Finds Pets by status
       description: Multiple status values can be provided with comma-separated strings
-      operationId: findPetsByStatus
+      operationId: findPetsByStudenID
       parameters:
-        - name: status
+        - name: StudentID
           in: query
           description: Status values that need to be considered for filter
           required: false
@@ -69,11 +68,14 @@ paths:
                 - id: 1
                   name: Tsanta
                   birthdate: 2002-12-08
+                - id: 2
+                  name: Sanda
+                  birthdate: 2003-07-15 
         '400':
           description: Invalid status value
     post:
       tags:
-        - default
+        - Student
       summary: Create a new student
       requestBody:
         required: true
@@ -92,6 +94,196 @@ paths:
           description: Invalid request
         '409':
           description: Student already exists
+    put:
+      tags:
+        - Student
+      summary: Update a student by ID
+      operationId: updateStudentById
+      parameters:
+        - name: studentID
+          in: query
+          description: ID of the student to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Student updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Invalid request
+        '404':
+          description: Student not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Student
+      summary: Delete a student by ID
+      operationId: deleteStudentById
+      parameters:
+        - name: studentId
+          in: query
+          description: ID of the student to be deleted
+          required: false
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Student deleted successfully
+        '400':
+          description: Invalid request
+        '404':
+          description: Student not found
+        '500':
+          description: Internal server error
+          
+        
+  /Teachers/findTeachersByIdteacher:
+    get:
+      tags:
+        - Teachers
+      summary: Finds Pets by status
+      description: Multiple status values can be provided with comma-separated strings
+      operationId: findTeachersByIdteacher
+      parameters:
+        - name: Idteacher
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    first_name:
+                      type: string
+                    course_name:
+                      type: string
+                    code:
+                      type: string
+                    duration:
+                      type: string
+              example:
+                - id: 1
+                  name: Toky
+                  first_name: RAMAROZAKA
+                  course_name: algorithm
+                  code: prog
+                  duration: 2h
+                - id: 2
+                  name: Harry
+                  first_name: RAKOTONDRATOMPO
+                  course_name: Network
+                  code: SYS1
+                  duration: 2h
+                - id: 3
+                  name: Ryan
+                  first_name: ANDRIAMAHERY
+                  course_name: OpenAPI
+                  code: API
+                  duration: 2h
+                
+        '400':
+          description: Invalid status value
+    post:
+      tags:
+        - Teachers
+      summary: Create a new teachers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+      responses:
+        '201':
+          description: Teachers created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+        '400':
+          description: Invalid request
+        '409':
+          description: Teachers already exists
+    put:
+      tags:
+        - Teachers
+      summary: Update a Teachers by ID
+      operationId: updateTeachersById
+      parameters:
+        - name: Idteachers
+          in: query
+          description: ID of the student to be updated
+          required: false
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+      responses:
+        '200':
+          description: Teachers updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+        '400':
+          description: Invalid request
+        '404':
+          description: Teachers not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Teachers
+      summary: Delete a Teachers by ID
+      operationId: deleteTeacherstById
+      parameters:
+        - name: Idteachers
+          in: query
+          description: ID of the student to be deleted
+          required: false
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Teachers deleted successfully
+        '400':
+          description: Invalid request
+        '404':
+          description: Teachers not found
+        '500':
+          description: Internal server error
 components:
   schemas:
     Student:
@@ -102,4 +294,20 @@ components:
         name:
           type: string
         birthdate:
+          type: string
+          
+    Teachers:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        first_name:
+          type: string
+        course_name:
+          type: string
+        code:
+          type: string
+        duration:
           type: string
