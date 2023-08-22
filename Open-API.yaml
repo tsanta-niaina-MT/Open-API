@@ -32,7 +32,7 @@ paths:
     get:
       tags:
         - Student
-      summary: Finds Pets by status
+      summary: Finds Student by ID
       description: Multiple status values can be provided with comma-separated strings
       operationId: findPetsByStudenID
       parameters:
@@ -152,7 +152,7 @@ paths:
     get:
       tags:
         - Teachers
-      summary: Finds Pets by status
+      summary: Finds teachers by ID
       description: Multiple status values can be provided with comma-separated strings
       operationId: findTeachersByIdteacher
       parameters:
