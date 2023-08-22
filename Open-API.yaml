@@ -19,12 +19,12 @@ tags:
   - name: Student
     description: Everything about your Students
     externalDocs:
-      description: Find out more
+      description: Find a student
       url: http://swagger.io
   - name: Teachers
     description: Everything about your Teachers
     externalDocs:
-      description: Find out more about our store
+      description: find a teachers
       url: http://swagger.io
  
 paths:
